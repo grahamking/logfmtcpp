@@ -123,21 +123,3 @@ void parse(const string& data, unordered_map<string, string>& m)
 }
 
 } // end namespace logfmt
-/*
-int main() {
-	//string data {R"X(foo=bar a=14 baz="hello kitty" cool%story=bro f %^asdf)X"};
-	string data {R"X(measure.test=1 measure.foo=bar measure.time=2h measure="foo")X"};
-
-	const unsigned int iterations = 2000000;
-	unordered_map<string, string> m;
-	auto start = chrono::high_resolution_clock::now();
-	for (auto i=0; i < iterations; ++i) {
-		logfmt::parse(data, m);
-	}
-	auto end = chrono::high_resolution_clock::now();
-	auto elapsed = end - start;
-	auto nanos = chrono::duration_cast<chrono::nanoseconds>(elapsed).count();
-	cout << nanos / iterations << " ns per iteration\n";
-	for (auto& x : m ) { cout << x.first << ": " << x.second << '\n'; }
-}
-*/

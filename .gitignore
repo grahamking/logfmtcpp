@@ -1,3 +1,5 @@
 logfmt
 logfmt_test
 libgtest.a
+logfmt.o
+liblogfmt.a
