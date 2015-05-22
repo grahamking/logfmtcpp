@@ -24,6 +24,7 @@ void parse(const string& data, unordered_map<string, string>& m)
 	bool in_quotes = false;
 	bool in_key = false;
 	bool in_value = false;
+	bool is_escape = false;
 	char c = 0;
 	for (unsigned int i=0; i<data.size(); ++i)
 	{
@@ -38,6 +39,12 @@ void parse(const string& data, unordered_map<string, string>& m)
 				<< "iq: " << in_quotes << " ";
 		}
 
+		if (c == '\\' && !is_escape)
+		{
+			is_escape = true;
+			continue;
+		}
+
 		if (is_key && c > ' ' && c != '"' && c != '=')
 		{
 			if (!in_key) {
@@ -45,7 +52,7 @@ void parse(const string& data, unordered_map<string, string>& m)
 				in_key=true;
 			}
 		}
-		else if (c == '"')
+		else if (c == '"' && !is_escape)
 		{
 			if (in_quotes) {
 				val_end = i;
@@ -95,6 +102,7 @@ void parse(const string& data, unordered_map<string, string>& m)
 		if (debug) {
 			cout << '\n';
 		}
+		is_escape = false;
 	}
 
 	// add last value

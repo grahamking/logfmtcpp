@@ -29,6 +29,15 @@ TEST(LogfmtTest, ParseExample) {
 	EXPECT_EQ(m["%^asdf"], "true");
 }
 
+TEST(LogfmtTest, ParseQuote) {
+	string data {R"X(json="{\"glossary\": {\"title\": \"example glossary\"}}" another=thing)X"};
+	unordered_map<string, string> m;
+	logfmt::parse(data, m);
+	EXPECT_EQ(m.size(), 2);
+	EXPECT_EQ(m["json"], R"X({\"glossary\": {\"title\": \"example glossary\"}})X");
+	EXPECT_EQ(m["another"], "thing");
+}
+
 TEST(LogfmtTest, Benchmark) {
 	string data {R"X(measure.test=1 measure.foo=bar measure.time=2h measure="foo")X"};
 
